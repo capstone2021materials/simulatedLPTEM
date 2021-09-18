@@ -136,9 +136,9 @@ public:
 	
 	matlab::data::TypedArray<double> inArray = inputs[0];
 	size=(int)(inArray.getDimensions()[1]-1)/9;
-    Matrix3f meshs[size];
+    auto meshs = new Matrix3f[size];
     RES=(short)inArray[0];
-	matlab::data::TypedArray<double> outArray=factory.createArray<double>({RES, RES});
+	matlab::data::TypedArray<double> outArray=factory.createArray<double>({(size_t)RES, (size_t)RES});
 	
 	
 	for (int i=0;i<size;i++){
@@ -151,15 +151,16 @@ public:
 	
 	}
 	
-	double canvas[RES][RES] = {};
-	ray_tracing(RES,meshs,size,&canvas[0][0]);
+	auto canvas = new double [RES*RES] {};
+	ray_tracing(RES,meshs,size,&canvas[0]);
 
 	for (int i=0;i<RES;i++){
 		for (int j=0;j<RES;j++){
-		outArray[i][j]=canvas[i][j];
+		outArray[i*RES + j]=canvas[i*RES + j];
 		}
 	}
 	outputs[0]=outArray;
+	delete [] canvas;
 	}
 };
 

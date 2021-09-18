@@ -83,7 +83,7 @@ return 1;
 
 
 int ray_tracing(Matrix3f meshs[], int size, double * output){
-	double results[size] = {};
+	auto results = new double[size] {};
 	double u[3]={0,0,1};
 	double p0[3]={0,0,-2000};
 	double mesh[3][3]={};
@@ -122,6 +122,8 @@ int ray_tracing(Matrix3f meshs[], int size, double * output){
 	for(int i=0;i<size;i++){
 			*(output+i)=results[i];
 	}
+	delete [] results;
+	return 0;
 }
 /*
 int main(){
@@ -160,8 +162,8 @@ public:
 	int n=0;
 	matlab::data::TypedArray<double> inArray = inputs[0];
 	size=(int)(inArray.getDimensions()[1])/9;
-	int points = size*3;
-    Matrix3f meshs[size];
+	size_t points = size*3;
+    auto meshs = new Matrix3f[size];
 	matlab::data::TypedArray<double> outArray=factory.createArray<double>({points});
 	for (int i=0;i<size;i++){
 		for(int j=0;j<3;j++){
@@ -173,13 +175,16 @@ public:
 	
 	}
 	
-double results[points] = {};
+	
+	auto results = new double[points]{};
 ray_tracing(meshs,points,&results[0]);
 	for(int i=0;i<points;i++){
 			outArray[i]=results[i];
 			}
 
 	outputs[0]=outArray;
+	delete[] meshs;
 	}
+	
 };
 
