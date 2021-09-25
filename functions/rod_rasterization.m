@@ -1,7 +1,7 @@
 function out=rod_rasterization(RES,scale)      %RES,scale                  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-len0=[4 45];                                          %%%%
-radius0=[2.2 7.5];                                    %%%%  nm  
+len0=[350 450];                                          %%%%
+radius0=[4.0 7.5];                                    %%%%  nm  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 len=len0/scale;
 radius=radius0/scale;
